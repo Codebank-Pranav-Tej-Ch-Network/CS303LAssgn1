@@ -27,7 +27,7 @@ ml-assignment/
     └── c3/   <- report.txt for C3 (no plots required)
 ```
 
-## Setup (WSL, inside your existing venv)
+## Setup 
 
 ```bash
 # 1. unzip/copy this folder somewhere, then cd into it
@@ -93,7 +93,7 @@ is what lets `from src.utils import ...` resolve correctly.)
 | `c2_polynomial_lasso.py` | C2 (a)-(c): polynomial fits (scratch), Ridge/Lasso vs lambda (sklearn), coefficient sparsity bar chart | `outputs/c2/c2_poly_fits.png`, `outputs/c2/c2_ridge_lasso_rmse_vs_lambda.png`, `outputs/c2/c2_coef_bar_lasso_vs_ridge.png`, `outputs/c2/report.txt` |
 | `c3_logistic_regression.py` | C3 (a)-(b): one-vs-rest logistic regression from scratch (BCE loss + gradient + GD), then again with PyTorch's `nn.BCELoss` + `torch.optim.SGD` | `outputs/c3/report.txt` |
 
-## Notes on design choices (useful for your write-up)
+## Notes on design choices 
 
 - **`src/utils.py`** centralizes `normal_equation`, `ridge_normal_equation`,
   `gradient_descent_linreg`, `rmse`, and `vandermonde` so C1 and C2(a) reuse
