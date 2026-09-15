@@ -1,0 +1,18 @@
+Loaded 150 samples, 4 features, classes=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+
+--- (a) One-vs-rest logistic regression, from scratch ---
+class 0 vs rest: final BCE loss = 0.0046
+class 1 vs rest: final BCE loss = 0.4748
+class 2 vs rest: final BCE loss = 0.0922
+Scratch one-vs-rest test accuracy = 0.9556
+
+--- (b) One-vs-rest logistic regression, PyTorch (nn.BCELoss + SGD) ---
+class 0 vs rest: final BCE loss = 0.0046
+class 1 vs rest: final BCE loss = 0.4742
+class 2 vs rest: final BCE loss = 0.0926
+PyTorch one-vs-rest test accuracy = 0.9556
+
+--- Comparison ---
+Scratch (numpy) accuracy : 0.9556
+PyTorch accuracy         : 0.9556
+Discussion: both implementations minimize the same binary cross-entropy objective with (full-batch) gradient descent, so their test accuracies are typically identical or within one misclassified sample of each other on this small, linearly near-separable dataset. Differences, when present, come from PyTorch's autograd-computed gradients / float32 precision vs our hand-derived float64 gradient, not from any difference in the underlying method.
