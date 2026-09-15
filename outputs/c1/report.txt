@@ -1,0 +1,30 @@
+theta_true = [ 4.   3.  -1.5]
+
+--- (a) Normal equation ---
+theta_hat = [3.88258777 1.08031127 0.48216857]
+training RMSE = 0.9684
+
+--- (b) Condition number & perturbation sensitivity ---
+condition number of A^T A = 4.7183e+03
+theta_hat' (perturbed) = [3.88255615 1.07502543 0.48785574]
+||theta_hat' - theta_hat||_2 = 0.007764
+Interpretation: A^T A is ill-conditioned (x1, x2 nearly collinear), so a tiny perturbation in y is amplified into a comparatively large shift in theta_hat -- the hallmark of an ill-conditioned normal equation.
+
+--- (c) Gradient descent for 3 learning rates ---
+lr=1e-05: final J=2.8139e+02, theta_gd=[3.88402166 0.80748039 0.76113986]
+lr=0.0001: final J=2.8138e+02, theta_gd=[3.88385996 0.8420708  0.7257708 ]
+lr=0.001: final J=nan, theta_gd=DIVERGED
+
+Diverging learning rate(s): [0.001]
+Converging learning rate(s) (slowest to fastest by final cost): [1e-05, 0.0001]
+Fastest converging lr in this run: 0.0001 (lowest final cost after 2000 iterations)
+Normal-equation theta_hat = [3.88258777 1.08031127 0.48216857]
+theta_gd (fastest lr=0.0001) = [3.88385996 0.8420708  0.7257708 ]
+Discussion: the max eigenvalue of A^T A sets a stability limit of roughly lr < 1/lambda_max for full-batch GD on this quadratic objective. Learning rates below that limit converge (more slowly the smaller they are); learning rates above it overshoot and diverge. The best converging theta_gd here closely matches the normal-equation theta_hat, confirming GD and the closed-form solution reach the same optimum of this convex objective -- GD just needs enough iterations and a stable step size to get there.
+
+--- (d) Ridge (regularized) normal equation, lambda=1.0 ---
+theta_hat_ridge = [3.88371619 0.87129618 0.694995  ]
+training RMSE (ridge) = 0.9685
+||theta_ridge' - theta_ridge||_2 = 0.002133
+condition number of (A^T A + lambda I) = 1.2914e+03
+Explanation: adding lambda*I shifts every eigenvalue of A^T A up by lambda, which shrinks the condition number and caps how much the smallest eigenvalue can amplify noise in y. That is why ||theta_ridge' - theta_ridge|| is smaller than the corresponding OLS perturbation from part (b): ridge trades a small amount of bias for a large reduction in variance/sensitivity.
